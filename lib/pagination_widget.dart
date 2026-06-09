@@ -1,4 +1,4 @@
-library pagination_widget;
+library;
 
 export 'src/pagination_controller.dart';
 export 'src/pagination_state.dart';

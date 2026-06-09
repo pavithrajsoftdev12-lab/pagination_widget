@@ -1,4 +1,4 @@
-# Custom Pagination
+# Pagination Widget
 
 A lightweight Flutter pagination package built without any third-party dependencies.
 
@@ -23,7 +23,7 @@ Add dependency in your `pubspec.yaml`.
 ```yaml
 dependencies:
   custom_pagination:
-    path: ../custom_pagination
+    path: ../pagination_widget
 ```
 
 For published package:
@@ -38,7 +38,7 @@ dependencies:
 ## Import
 
 ```dart
-import 'package:custom_pagination/custom_pagination.dart';
+import 'package:pagination_widget/pagination_widget.dart';
 ```
 
 ---
@@ -222,27 +222,6 @@ PaginationErrorWidget(
   message: 'Network Error',
   onRetry: () {},
 )
-```
-
----
-
-# Package Structure
-
-```text
-lib/
-│
-├── custom_pagination.dart
-│
-└── src/
-    ├── pagination_controller.dart
-    ├── pagination_state.dart
-    ├── pagination_status.dart
-    │
-    ├── pagination_list_view.dart
-    ├── pagination_grid_view.dart
-    │
-    ├── loading_widget.dart
-    └── error_widget.dart
 ```
 
 ---
