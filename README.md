@@ -22,7 +22,7 @@ Add dependency in your `pubspec.yaml`.
 
 ```yaml
 dependencies:
-  custom_pagination:
+  pagination_widget:
     path: ../pagination_widget
 ```
 
@@ -30,7 +30,7 @@ For published package:
 
 ```yaml
 dependencies:
-  custom_pagination: ^1.0.0
+  pagination_widget: ^1.0.1
 ```
 
 ---
@@ -122,6 +122,29 @@ PaginationGridView<String>(
       ),
     );
   },
+)
+```
+
+### Custom Widgets
+
+Both `PaginationListView` and `PaginationGridView` support custom widgets for different states:
+
+```dart
+PaginationGridView<String>(
+  controller: controller,
+  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+  itemBuilder: (context, item, index) => ListTile(title: Text(item)),
+  // Custom loading for initial load
+  loadingWidget: MyCustomLoadingWidget(),
+  // Custom loading for pagination (bottom of list)
+  loadMoreWidget: MyCustomLoadMoreWidget(),
+  // Custom error widget with retry callback
+  errorWidgetBuilder: (context, error, onRetry) => MyCustomErrorWidget(
+    message: error,
+    onRetry: onRetry,
+  ),
+  // Custom empty state
+  emptyWidget: MyCustomEmptyWidget(),
 )
 ```
 

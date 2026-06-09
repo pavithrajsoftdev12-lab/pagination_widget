@@ -10,11 +10,32 @@ class PaginationListView<T> extends StatefulWidget {
     super.key,
     required this.controller,
     required this.itemBuilder,
+    this.loadingWidget,
+    this.errorWidgetBuilder,
+    this.emptyWidget,
+    this.loadMoreWidget,
   });
 
   final PaginationController<T> controller;
 
   final Widget Function(BuildContext context, T item, int index) itemBuilder;
+
+  /// Widget shown during initial loading.
+  final Widget? loadingWidget;
+
+  /// Builder for the error state, providing the error message and a retry callback.
+  final Widget Function(
+    BuildContext context,
+    String error,
+    VoidCallback onRetry,
+  )?
+  errorWidgetBuilder;
+
+  /// Widget shown when there are no items to display.
+  final Widget? emptyWidget;
+
+  /// Widget shown at the bottom of the list while loading more items.
+  final Widget? loadMoreWidget;
 
   @override
   State<PaginationListView<T>> createState() => _PaginationListViewState<T>();
@@ -47,18 +68,24 @@ class _PaginationListViewState<T> extends State<PaginationListView<T>> {
         final state = widget.controller.state;
 
         if (state.status == PaginationStatus.loading && state.items.isEmpty) {
-          return const PaginationLoadingWidget();
+          return widget.loadingWidget ?? const PaginationLoadingWidget();
         }
 
         if (state.status == PaginationStatus.error && state.items.isEmpty) {
-          return PaginationErrorWidget(
-            message: state.errorMessage ?? 'Something went wrong',
-            onRetry: widget.controller.refresh,
-          );
+          return widget.errorWidgetBuilder?.call(
+                context,
+                state.errorMessage ?? 'Something went wrong',
+                widget.controller.refresh,
+              ) ??
+              PaginationErrorWidget(
+                message: state.errorMessage ?? 'Something went wrong',
+                onRetry: widget.controller.refresh,
+              );
         }
 
         if (state.status == PaginationStatus.empty) {
-          return const Center(child: Text('No Data Found'));
+          return widget.emptyWidget ??
+              const Center(child: Text('No Data Found'));
         }
 
         return ListView.builder(
@@ -69,7 +96,8 @@ class _PaginationListViewState<T> extends State<PaginationListView<T>> {
               return widget.itemBuilder(context, state.items[index], index);
             }
 
-            return const PaginationLoadingWidget(padding: EdgeInsets.all(8));
+            return widget.loadMoreWidget ??
+                const PaginationLoadingWidget(padding: EdgeInsets.all(8));
           },
         );
       },
