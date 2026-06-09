@@ -1,9 +1,9 @@
 name: pagination_widget
 description: "A lightweight Flutter pagination package with ListView and GridView support."
 version: 1.0.0
-homepage: https://github.com/yourname/custom_pagination
-repository: https://github.com/yourname/custom_pagination
-issue_tracker: https://github.com/yourname/custom_pagination/issues
+homepage: https://github.com/pavithrajsoftdev12-lab/pagination_widget
+repository: https://github.com/pavithrajsoftdev12-lab/pagination_widget
+issue_tracker: https://github.com/pavithrajsoftdev12-lab/pagination_widget/issues
 
 environment:
   sdk: ^3.11.1

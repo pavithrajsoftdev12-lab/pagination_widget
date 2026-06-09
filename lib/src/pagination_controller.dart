@@ -11,7 +11,7 @@ class PaginationController<T> extends ChangeNotifier {
   final PageFetcher<T> fetchPage;
   final int pageSize;
 
-  PaginationState<T> _state = const PaginationState();
+  PaginationState<T> _state = PaginationState<T>();
 
   PaginationState<T> get state => _state;
 
@@ -20,7 +20,7 @@ class PaginationController<T> extends ChangeNotifier {
   Future<void> refresh() async {
     _currentPage = 1;
 
-    _state = const PaginationState(status: PaginationStatus.loading);
+    _state = PaginationState<T>(status: PaginationStatus.loading);
 
     notifyListeners();
 
